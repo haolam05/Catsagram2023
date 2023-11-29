@@ -43,12 +43,10 @@ body {
   text-shadow: 2px 2px 4px rgb(230, 129, 129);
 }
 
-#upvoteBtn {
-  margin-right: 2.5px;
-}
-
-#downvoteBtn {
-  margin-left: 2.5px;
+#votes-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 #comment-input input {

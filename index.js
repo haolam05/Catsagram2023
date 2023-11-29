@@ -1,3 +1,5 @@
+import initializeEvents from './events.js';
+
 async function initializeCatsagram() {
   createHeader();
   await createCatContainer();
@@ -5,6 +7,7 @@ async function initializeCatsagram() {
   createVotes();
   createCommentInput();
   createUserPosts();
+  initializeEvents();
 }
 
 function createHeader() {
@@ -43,8 +46,14 @@ function createVotes() {
   const buttons = document.createElement('div');
   buttons.setAttribute('id', 'votes');
   buttons.innerHTML = `
-    <button id="upvoteBtn" class="voteButton">Upvote</button>
-    <button id="downvoteBtn" class="voteButton">Downvote</button>
+    <div id="votes-container">
+      <span id="upvotes">0</span>
+      <span>👍🏾</span>
+      <button id="upvoteBtn" class="voteButton">Upvote</button>
+      <button id="downvoteBtn" class="voteButton">Downvote</button>
+      <span id="downvotes">0</span>
+      <span>👎🏾</span>
+    </div>
   `;
   document.body.appendChild(buttons);
 }
