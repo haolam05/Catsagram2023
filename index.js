@@ -1,6 +1,6 @@
 async function initializeCatsagram() {
   createHeader();
-  await fetchCat();
+  await createCatContainer();
   createPopularityScore();
   createVotes();
   createCommentInput();
@@ -13,13 +13,23 @@ function createHeader() {
   document.body.appendChild(h1);
 }
 
-async function fetchCat() {
+async function createCatContainer() {
   const div = document.createElement('div');
-  const res = await fetch('https://api.thecatapi.com/v1/images/search');
-  const data = await res.json();
-  const { id, url } = data[0];
+  div.setAttribute('id', 'img-container');
+  const { id, url } = await fetchCat(300);
   div.innerHTML = `<img src='${url}' id='${id}'>`
   document.body.appendChild(div);
+}
+
+async function fetchCat(maxHeight) {
+  let data;
+  let heightOk = false;
+  while (!heightOk) {
+    const res = await fetch('https://api.thecatapi.com/v1/images/search');
+    data = await res.json();
+    if (data[0]['height'] <= maxHeight) heightOk = true;
+  }
+  return data[0];
 }
 
 function createPopularityScore() {
