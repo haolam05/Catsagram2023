@@ -35,7 +35,7 @@ async function fetchCat(maxHeight) {
 function createPopularityScore() {
   const div = document.createElement('div');
   div.setAttribute('id', 'pop');
-  div.innerHTML = `Popularity score <span id="pop-score">0</span>`
+  div.innerHTML = `Popularity score: <span id="pop-score">0</span>`
   document.body.appendChild(div);
 }
 
@@ -44,7 +44,7 @@ function createVotes() {
   buttons.setAttribute('id', 'votes');
   buttons.innerHTML = `
     <button id="upvoteBtn" class="voteButton">Upvote</button>
-    <button id="downVoteBtn" class="voteButton">Downvote</button>
+    <button id="downvoteBtn" class="voteButton">Downvote</button>
   `;
   document.body.appendChild(buttons);
 }

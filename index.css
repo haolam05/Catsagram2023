@@ -1,14 +1,64 @@
+:root {
+  --custom-brown: rgb(122, 43, 29);
+}
+
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
 }
 
 #img-container {
   display: flex;
-  width: 200px;
+  justify-content: center;
+  width: 300px;
+  margin-bottom: 10px;
 }
 
 #img-container>img {
   width: 100%;
+}
+
+#pop-score {
+  color: coral;
+}
+
+.voteButton,
+#comment-input button {
+  width: 76px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: var(--custom-brown);
+  color: white;
+  border: none;
+  box-shadow: 2px 2px 4px rgb(90, 29, 19);
+}
+
+.voteButton:hover,
+#comment-input button:hover {
+  border: 1px solid var(--custom-brown);
+  background-color: white;
+  color: var(--custom-brown);
+  text-shadow: 2px 2px 4px rgb(230, 129, 129);
+}
+
+#upvoteBtn {
+  margin-right: 2.5px;
+}
+
+#downvoteBtn {
+  margin-left: 2.5px;
+}
+
+#comment-input input {
+  border-radius: 5px;
+  padding: 5px;
+  border-color: var(--custom-brown);
+}
+
+#post {
+  border: 1px solid black;
+  width: 80%;
+  height: 400px;
 }
