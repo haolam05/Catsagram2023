@@ -31,7 +31,8 @@ h1 {
 .voteButton,
 #comment-input button,
 #new-cat,
-#pin-cat {
+#pin-cat,
+#unpin-cat {
   width: 76px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -44,7 +45,8 @@ h1 {
 .voteButton:hover,
 #comment-input button:hover,
 #new-cat:hover,
-#pin-cat:hover {
+#pin-cat:hover,
+#unpin-cat:hover {
   border: 1px solid var(--custom-brown);
   background-color: white;
   color: var(--custom-brown);
@@ -70,7 +72,7 @@ h1 {
 }
 
 #post {
-  border: 1px solid var(--custom-brown);
+  box-shadow: 1px 1px 4px 4px rgb(110, 75, 75);
   border-radius: 5px;
   width: 80%;
   height: 400px;
@@ -110,15 +112,20 @@ h1 {
 }
 
 .gallery-image {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-rows: 80% 10%;
+  justify-items: center;
   width: 177px;
   height: 250px;
 }
 
 img {
   border-radius: 5px;
+}
+
+img:hover,
+.comment:hover {
+  box-shadow: 2px 2px 4px var(--custom-brown);
 }
 
 .gallery-image img {

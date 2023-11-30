@@ -22,8 +22,9 @@ function createImgButtons() {
   const div = document.createElement('div');
   div.setAttribute('id', 'image-buttons');
   div.innerHTML = `
-    <button id="new-cat">New Pic</button>
-    <button id="pin-cat">Pin Pic</button>
+    <button id="new-cat">New</button>
+    <button id="pin-cat">Pin</button>
+    <button id="unpin-cat">UnPin</button>
   `;
   document.body.appendChild(div);
 }
@@ -35,9 +36,13 @@ function createCatContainer() {
 }
 
 export default async function addCatToContainer() {
-  const imgContainer = document.querySelector('#img-container');
-  const { id, url } = await fetchCat(300);
-  imgContainer.innerHTML = `<img src='${url}' id='${id}'>`
+  try {
+    const imgContainer = document.querySelector('#img-container');
+    const { id, url } = await fetchCat(300);
+    imgContainer.innerHTML = `<img src='${url}' id='${id}'>`
+  } catch {
+    await addCatToContainer();
+  }
 }
 
 async function fetchCat(maxHeight) {
