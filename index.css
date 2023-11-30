@@ -22,6 +22,7 @@ h1 {
 }
 
 #cats-container {
+  opacity: 0.3;
   position: fixed;
   z-index: -1;
   left: 25%;
@@ -289,7 +290,7 @@ img:hover,
   top: 0;
   width: 100%;
   color: white;
-  padding: 5px;
+  padding: 20px;
   font-weight: 900;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
