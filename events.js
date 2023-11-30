@@ -9,22 +9,31 @@ export default function initializeEvents() {
   const upvoteBtnEl = document.querySelector('#upvoteBtn');
   const downvoteBtnEl = document.querySelector('#downvoteBtn');
   const popScoreEl = document.querySelector('#pop-score');
+  const popScoreLabelEl = document.querySelector('#pop>span');
   const upvotesEl = document.querySelector('#upvotes');
   const downvotesEl = document.querySelector('#downvotes');
   const submitCommentEl = document.querySelector('#comment-input>button');
   const commentInputEl = document.querySelector('#comment-input>input');
+  const commentInputLabelEl = document.querySelector('#comment-input>label');
   const commentsEl = document.querySelector('#comments');
   const galleryEl = document.querySelector('#gallery');
   const newCatEl = document.querySelector('#new-cat');
   const pinCatEl = document.querySelector('#pin-cat');
   const unpinCatEl = document.querySelector('#unpin-cat');
   const postEl = document.querySelector('#post');
-  // const catsContainerEl = document.querySelector('#cats-container');
+  const modalEl = document.querySelector('#modal');
+  const modalImageEl = document.querySelector('#modal-image');
+  const modalCommentsEl = document.querySelector('#modal-comments');
+  const modalBtnEl = document.querySelector('#modal-btn');
+  const imageButtonsEl = document.querySelector('#image-buttons');
+  const imageContainerEl = document.querySelector('#img-container');
+  const catsContainerEl = document.querySelector('#cats-container');
   let headerImgEl = document.querySelector('img');
   const pins = {};
   const comments = {};
   const nextThumbColor = { '👍🏾': '👍🏻', '👍🏻': '👍🏾', '👎🏾': '👎🏻', '👎🏻': '👎🏾' }
-  const modeAffectElements = [bodyEl, h1El, newCatEl, pinCatEl, unpinCatEl, upvoteBtnEl, downvoteBtnEl, submitCommentEl, commentInputEl, postEl, commentsEl];
+  const modeAffectElements = [bodyEl, h1El, newCatEl, pinCatEl, unpinCatEl, upvoteBtnEl, downvoteBtnEl, submitCommentEl, commentInputEl, postEl, commentsEl, modalEl];
+  const blurAffectedElements = [postEl, popScoreEl, popScoreLabelEl, imageButtonsEl, imageContainerEl, votesContainerEl, commentInputEl, commentInputLabelEl, submitCommentEl];
 
 
   modeBtnEl.addEventListener('click', switchMode);
@@ -34,6 +43,8 @@ export default function initializeEvents() {
   pinCatEl.addEventListener('click', pinCat);
   unpinCatEl.addEventListener('click', unpinCat);
   galleryEl.addEventListener('click', showCat);
+  galleryEl.addEventListener('click', showModal);
+  modalBtnEl.addEventListener('click', closeModal);
 
   function switchMode(e) {
     const toDarkMode = e.target.classList.contains('light');
@@ -65,6 +76,7 @@ export default function initializeEvents() {
   function switchThumbsColor() {
     votesContainerThumbsEl.forEach(el => el.innerText = nextThumbColor[el.innerText]);
     updatePins();
+    updateModal();
   }
 
   function updatePins() {
@@ -73,6 +85,11 @@ export default function initializeEvents() {
     const galleryImages = document.querySelectorAll('.gallery-image>img');
     galleryImages.forEach(img => pins[img.id] = pins[img.id].replace(prevThumbUp, currThumbUp).replace(prevThumbDown, currThumbDown));
     updateGallery();
+  }
+
+  function updateModal() {
+    const id = modalImageEl.querySelector('.gallery-image>img').id;
+    modalImageEl.innerHTML = pins[id];
   }
 
   function updateScore(e) {
@@ -117,8 +134,6 @@ export default function initializeEvents() {
   function pinCat() {
     saveToGallery();
     saveToComments();
-    // catsContainerEl.classList.remove('hidden');
-    // setTimeout(() => catsContainerEl.classList.add('hidden'), 10000);
   }
 
   function getCurrentThumbs() {
@@ -129,7 +144,7 @@ export default function initializeEvents() {
     const [thumbUp, thumbDown] = getCurrentThumbs();
     pins[headerImgEl.id] = `
       <div class='gallery-image'>
-        <img src = ${headerImgEl.src} id=${headerImgEl.id}>
+        <img class='gallery-img' src = ${headerImgEl.src} id=${headerImgEl.id}>
         <p>
           <span class='pin-vote' id='pin-upvote'>${Number(upvotesEl.innerText)}</span>
           <span class='thumbs'>${thumbUp}</span>
@@ -175,5 +190,30 @@ export default function initializeEvents() {
 
   function replaceComments(id) {
     commentsEl.innerHTML = comments[id];
+  }
+
+  function showModal(e) {
+    if (e.target.classList.contains('gallery-img')) {
+      blurElements();
+      catsContainerEl.classList.add('hidden');
+      modalEl.classList.remove('hidden');
+      modalImageEl.innerHTML = pins[e.target.id];
+      modalCommentsEl.innerHTML = comments[e.target.id];
+      modeBtnEl.classList.contains('dark') ? modalEl.classList.add('dark-mode') : modalEl.classList.remove('dark-mode');
+    }
+  }
+
+  function blurElements() {
+    blurAffectedElements.forEach(el => el.classList.add('blur'));
+  }
+
+  function unblurElements() {
+    blurAffectedElements.forEach(el => el.classList.remove('blur'));
+  }
+
+  function closeModal() {
+    unblurElements();
+    catsContainerEl.classList.remove('hidden');
+    modalEl.classList.add('hidden');
   }
 }

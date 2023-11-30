@@ -11,6 +11,7 @@ async function initializeCatsagram() {
   createVotes();
   createCommentInput();
   createUserPosts();
+  createPostDetail();
   initializeEvents();
 }
 
@@ -18,7 +19,6 @@ function createCats() {
   const directions = ['fs', 'fn', 'fe', 'fw', 'fne', 'fnw', 'fse', 'fsw'];
   const catsContainer = document.createElement('div');
   catsContainer.setAttribute('id', 'cats-container');
-  // catsContainer.classList.add('hidden');
   for (let i = 0; i < 100; i++) {
     const direction = directions[Math.round(Math.random() * (directions.length - 1))];
     const cat = document.createElement('div');
@@ -86,7 +86,7 @@ async function fetchCat(maxHeight) {
 function createPopularityScore() {
   const div = document.createElement('div');
   div.setAttribute('id', 'pop');
-  div.innerHTML = `Popularity score: <span id="pop-score">0</span>`
+  div.innerHTML = `<span>Popularity score: </span><span id="pop-score">0</span>`
   document.body.appendChild(div);
 }
 
@@ -123,6 +123,18 @@ function createUserPosts() {
     <div id='gallery'></div>
     <div id='comments'></div>
   `
+  document.body.appendChild(div);
+}
+
+function createPostDetail() {
+  const div = document.createElement('div');
+  div.setAttribute('id', 'modal');
+  div.classList.add('hidden');
+  div.innerHTML = `
+    <div id='modal-image'>img</div>
+    <div id='modal-comments'>comments</div>
+    <button id='modal-btn'><img src='./images/brown-X.png'></button>
+  `;
   document.body.appendChild(div);
 }
 
