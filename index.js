@@ -1,6 +1,7 @@
 import initializeEvents from './events.js';
 
 async function initializeCatsagram() {
+  createCats();
   createDarkModeBtn();
   createHeader();
   createImgButtons();
@@ -11,6 +12,22 @@ async function initializeCatsagram() {
   createCommentInput();
   createUserPosts();
   initializeEvents();
+}
+
+function createCats() {
+  const directions = ['fs', 'fn', 'fe', 'fw', 'fne', 'fnw', 'fse', 'fsw'];
+  const catsContainer = document.createElement('div');
+  catsContainer.setAttribute('id', 'cats-container');
+  // catsContainer.classList.add('hidden');
+  for (let i = 0; i < 100; i++) {
+    const direction = directions[Math.round(Math.random() * (directions.length - 1))];
+    const cat = document.createElement('div');
+    cat.classList.add('cat');
+    cat.classList.add(direction);
+    cat.innerText = '🐈';
+    catsContainer.appendChild(cat);
+  }
+  document.body.appendChild(catsContainer);
 }
 
 function createDarkModeBtn() {

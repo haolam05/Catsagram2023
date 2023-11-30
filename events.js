@@ -19,6 +19,7 @@ export default function initializeEvents() {
   const pinCatEl = document.querySelector('#pin-cat');
   const unpinCatEl = document.querySelector('#unpin-cat');
   const postEl = document.querySelector('#post');
+  // const catsContainerEl = document.querySelector('#cats-container');
   let headerImgEl = document.querySelector('img');
   const pins = {};
   const comments = {};
@@ -116,6 +117,8 @@ export default function initializeEvents() {
   function pinCat() {
     saveToGallery();
     saveToComments();
+    // catsContainerEl.classList.remove('hidden');
+    // setTimeout(() => catsContainerEl.classList.add('hidden'), 10000);
   }
 
   function getCurrentThumbs() {

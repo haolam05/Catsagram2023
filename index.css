@@ -17,6 +17,151 @@ h1 {
   margin-bottom: 5px;
 }
 
+.hidden {
+  opacity: 0;
+}
+
+#cats-container {
+  position: fixed;
+  z-index: -1;
+  left: 25%;
+  right: 25%;
+  top: 25%;
+  bottom: 25%;
+  flex-wrap: wrap;
+  display: flex;
+  animation: rotate 5s infinite ease-in-out;
+}
+
+.cat {
+  animation-direction: alternate;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.cat.fe {
+  animation-name: slideFromEast;
+}
+
+.cat.fw {
+  animation-name: slideFromWest;
+}
+
+.cat.fs {
+  animation-name: slideFromSouth;
+}
+
+.cat.fn {
+  animation-name: slideFromNorth;
+}
+
+.cat.fse {
+  animation-name: slideFromSoutheast;
+}
+
+.cat.fne {
+  animation-name: slideFromNortheast;
+}
+
+.cat.fsw {
+  animation-name: slideFromSouthwest;
+}
+
+.cat.fnw {
+  animation-name: slideFromNorthwest;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0);
+  }
+}
+
+@keyframes slideFromEast {
+  from {
+    transform: translateX(20vw);
+  }
+
+  to {
+    transform: translateX(0vw);
+  }
+}
+
+@keyframes slideFromWest {
+  from {
+    transform: translateX(-20vw);
+  }
+
+  to {
+    transform: translateX(0vw);
+  }
+}
+
+@keyframes slideFromSouth {
+  from {
+    transform: translateY(20vh);
+  }
+
+  to {
+    transform: translateY(0vh);
+  }
+}
+
+@keyframes slideFromNorth {
+  from {
+    transform: translateY(-20vh);
+  }
+
+  to {
+    transform: translateY(0vh);
+  }
+}
+
+@keyframes slideFromSoutheast {
+  from {
+    transform: translate(20vw, 20vh);
+  }
+
+  to {
+    transform: translate(0vw, 0vh);
+  }
+}
+
+@keyframes slideFromNortheast {
+  from {
+    transform: translate(20vw, -20vh);
+  }
+
+  to {
+    transform: translate(0vw, 0vh);
+  }
+}
+
+@keyframes slideFromSouthwest {
+  from {
+    transform: translate(-20vw, 20vh);
+  }
+
+  to {
+    transform: translate(0vw, 0vh);
+  }
+}
+
+@keyframes slideFromNorthwest {
+  from {
+    transform: translate(-20vw, -20vh);
+  }
+
+  to {
+    transform: translate(0vw, 0vh);
+  }
+}
+
 #img-container {
   display: flex;
   justify-content: center;
