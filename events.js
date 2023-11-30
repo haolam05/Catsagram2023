@@ -5,6 +5,7 @@ export default function initializeEvents() {
   const h1El = document.querySelector('h1');
   const modeBtnEl = document.querySelector('#mode-btn');
   const votesContainerEl = document.querySelector('#votes-container');
+  const votesContainerThumbsEl = votesContainerEl.querySelectorAll('.thumbs');
   const upvoteBtnEl = document.querySelector('#upvoteBtn');
   const downvoteBtnEl = document.querySelector('#downvoteBtn');
   const popScoreEl = document.querySelector('#pop-score');
@@ -13,7 +14,7 @@ export default function initializeEvents() {
   const submitCommentEl = document.querySelector('#comment-input>button');
   const commentInputEl = document.querySelector('#comment-input>input');
   const commentsEl = document.querySelector('#comments');
-  const gallaryEl = document.querySelector('#gallery');
+  const galleryEl = document.querySelector('#gallery');
   const newCatEl = document.querySelector('#new-cat');
   const pinCatEl = document.querySelector('#pin-cat');
   const unpinCatEl = document.querySelector('#unpin-cat');
@@ -21,6 +22,7 @@ export default function initializeEvents() {
   let headerImgEl = document.querySelector('img');
   const pins = {};
   const comments = {};
+  const nextThumbColor = { '👍🏾': '👍🏻', '👍🏻': '👍🏾', '👎🏾': '👎🏻', '👎🏻': '👎🏾' }
   const modeAffectElements = [bodyEl, h1El, newCatEl, pinCatEl, unpinCatEl, upvoteBtnEl, downvoteBtnEl, submitCommentEl, commentInputEl, postEl, commentsEl];
 
 
@@ -30,7 +32,7 @@ export default function initializeEvents() {
   newCatEl.addEventListener('click', updateHeaderImg);
   pinCatEl.addEventListener('click', pinCat);
   unpinCatEl.addEventListener('click', unpinCat);
-  gallaryEl.addEventListener('click', showCat);
+  galleryEl.addEventListener('click', showCat);
 
   function switchMode(e) {
     const toDarkMode = e.target.classList.contains('light');
@@ -51,19 +53,25 @@ export default function initializeEvents() {
     if (toDarkMode) {
       modeBtnEl.classList.remove('light');
       modeBtnEl.classList.add('dark');
+      modeBtnEl.innerText = 'Lightmode'
     } else {
       modeBtnEl.classList.remove('dark');
       modeBtnEl.classList.add('light');
+      modeBtnEl.innerText = 'Darkmode'
     }
   }
 
   function switchThumbsColor() {
-    document.querySelectorAll('.thumbs').forEach(el => {
-      if (el.innerText == '👍🏾') el.innerText = '👍🏻';
-      else if (el.innerText == '👍🏻') el.innerText = '👍🏾';
-      else if (el.innerText == '👎🏾') el.innerText = '👎🏻';
-      else if (el.innerText == '👎🏻') el.innerText = '👎🏾';
-    });
+    votesContainerThumbsEl.forEach(el => el.innerText = nextThumbColor[el.innerText]);
+    updatePins();
+  }
+
+  function updatePins() {
+    const [currThumbUp, currThumbDown] = getCurrentThumbs();
+    const [prevThumbUp, prevThumbDown] = [nextThumbColor[currThumbUp], nextThumbColor[currThumbDown]];
+    const galleryImages = document.querySelectorAll('.gallery-image>img');
+    galleryImages.forEach(img => pins[img.id] = pins[img.id].replace(prevThumbUp, currThumbUp).replace(prevThumbDown, currThumbDown));
+    updateGallery();
   }
 
   function updateScore(e) {
@@ -84,7 +92,7 @@ export default function initializeEvents() {
     div.innerText = commentInputEl.value.slice(0, 40);
     commentsEl.appendChild(div);
     commentInputEl.value = '';
-    if (headerImgEl.id in comments) comments[headerImgEl.id] = commentsEl.innerHTML;
+    if (headerImgEl.id in comments) saveToComments();
   }
 
   async function updateHeaderImg() {
@@ -101,28 +109,41 @@ export default function initializeEvents() {
     if (headerImgEl.id in pins) {
       delete pins[headerImgEl.id];
       delete comments[headerImgEl.id];
-      gallaryEl.innerHTML = Object.values(pins).join('');
+      galleryEl.innerHTML = Object.values(pins).join('');
     }
   }
 
   function pinCat() {
-    saveToGallary();
+    saveToGallery();
     saveToComments();
   }
 
-  function saveToGallary() {
+  function getCurrentThumbs() {
+    return modeBtnEl.classList.contains('light') ? ['👍🏾', '👎🏾'] : ['👍🏻', '👎🏻'];
+  }
+
+  function saveToPins() {
+    const [thumbUp, thumbDown] = getCurrentThumbs();
     pins[headerImgEl.id] = `
       <div class='gallery-image'>
         <img src = ${headerImgEl.src} id=${headerImgEl.id}>
         <p>
           <span class='pin-vote' id='pin-upvote'>${Number(upvotesEl.innerText)}</span>
-          <span class='thumbs'>${modeBtnEl.classList.contains('light') ? '👍🏾' : '👍🏻'}</span>
+          <span class='thumbs'>${thumbUp}</span>
           <span class='pin-vote' id='pin-downvote'>${Number(downvotesEl.innerText)}</span>
-          <span class='thumbs'>${modeBtnEl.classList.contains('light') ? '👎🏾' : '👎🏻'}</span>
+          <span class='thumbs'>${thumbDown}</span>
         </p>
       </div>
     `;
-    gallaryEl.innerHTML = Object.values(pins).join('');
+  }
+
+  function updateGallery() {
+    galleryEl.innerHTML = Object.values(pins).join('');
+  }
+
+  function saveToGallery() {
+    saveToPins();
+    updateGallery();
   }
 
   function saveToComments() {
