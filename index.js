@@ -2,7 +2,9 @@ import initializeEvents from './events.js';
 
 async function initializeCatsagram() {
   createHeader();
-  await createCatContainer();
+  createImgButtons();
+  createCatContainer();
+  await addCatToContainer();
   createPopularityScore();
   createVotes();
   createCommentInput();
@@ -16,12 +18,26 @@ function createHeader() {
   document.body.appendChild(h1);
 }
 
-async function createCatContainer() {
+function createImgButtons() {
+  const div = document.createElement('div');
+  div.setAttribute('id', 'image-buttons');
+  div.innerHTML = `
+    <button id="new-cat">New Pic</button>
+    <button id="pin-cat">Pin Pic</button>
+  `;
+  document.body.appendChild(div);
+}
+
+function createCatContainer() {
   const div = document.createElement('div');
   div.setAttribute('id', 'img-container');
-  const { id, url } = await fetchCat(300);
-  div.innerHTML = `<img src='${url}' id='${id}'>`
   document.body.appendChild(div);
+}
+
+export default async function addCatToContainer() {
+  const imgContainer = document.querySelector('#img-container');
+  const { id, url } = await fetchCat(300);
+  imgContainer.innerHTML = `<img src='${url}' id='${id}'>`
 }
 
 async function fetchCat(maxHeight) {
