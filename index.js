@@ -1,6 +1,7 @@
 import initializeEvents from './events.js';
 
 async function initializeCatsagram() {
+  createDarkModeBtn();
   createHeader();
   createImgButtons();
   createCatContainer();
@@ -10,6 +11,15 @@ async function initializeCatsagram() {
   createCommentInput();
   createUserPosts();
   initializeEvents();
+}
+
+function createDarkModeBtn() {
+  const btn = document.createElement('button');
+  btn.setAttribute('id', 'mode-btn');
+  btn.classList.add('light');
+  btn.classList.add('mode-btn');
+  btn.innerText = 'DarkMode';
+  document.body.appendChild(btn);
 }
 
 function createHeader() {
@@ -69,11 +79,11 @@ function createVotes() {
   buttons.innerHTML = `
     <div id="votes-container">
       <span id="upvotes">0</span>
-      <span>👍🏾</span>
+      <span class="thumbs">👍🏾</span>
       <button id="upvoteBtn" class="voteButton">Upvote</button>
       <button id="downvoteBtn" class="voteButton">Downvote</button>
       <span id="downvotes">0</span>
-      <span>👎🏾</span>
+      <span class="thumbs">👎🏾</span>
     </div>
   `;
   document.body.appendChild(buttons);

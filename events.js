@@ -1,27 +1,70 @@
 import addCatToContainer from "./index.js";
 
 export default function initializeEvents() {
-  const pins = {};
-  const comments = {};
+  const bodyEl = document.body;
+  const h1El = document.querySelector('h1');
+  const modeBtnEl = document.querySelector('#mode-btn');
   const votesContainerEl = document.querySelector('#votes-container');
+  const upvoteBtnEl = document.querySelector('#upvoteBtn');
+  const downvoteBtnEl = document.querySelector('#downvoteBtn');
   const popScoreEl = document.querySelector('#pop-score');
   const upvotesEl = document.querySelector('#upvotes');
   const downvotesEl = document.querySelector('#downvotes');
-  const submitCommentBtn = document.querySelector('#comment-input>button');
+  const submitCommentEl = document.querySelector('#comment-input>button');
   const commentInputEl = document.querySelector('#comment-input>input');
   const commentsEl = document.querySelector('#comments');
   const gallaryEl = document.querySelector('#gallery');
   const newCatEl = document.querySelector('#new-cat');
   const pinCatEl = document.querySelector('#pin-cat');
   const unpinCatEl = document.querySelector('#unpin-cat');
+  const postEl = document.querySelector('#post');
   let headerImgEl = document.querySelector('img');
+  const pins = {};
+  const comments = {};
+  const modeAffectElements = [bodyEl, h1El, newCatEl, pinCatEl, unpinCatEl, upvoteBtnEl, downvoteBtnEl, submitCommentEl, commentInputEl, postEl, commentsEl];
 
+
+  modeBtnEl.addEventListener('click', switchMode);
   votesContainerEl.addEventListener('click', updateScore);
-  submitCommentBtn.addEventListener('click', updateComments);
+  submitCommentEl.addEventListener('click', updateComments);
   newCatEl.addEventListener('click', updateHeaderImg);
   pinCatEl.addEventListener('click', pinCat);
   unpinCatEl.addEventListener('click', unpinCat);
   gallaryEl.addEventListener('click', showCat);
+
+  function switchMode(e) {
+    const toDarkMode = e.target.classList.contains('light');
+    toggleMode(toDarkMode);
+    toDarkMode ? addDarkModeToElements() : removeDarkmModeForElements();
+    switchThumbsColor();
+  }
+
+  function addDarkModeToElements() {
+    modeAffectElements.forEach(el => el.classList.add('dark-mode'))
+  }
+
+  function removeDarkmModeForElements() {
+    modeAffectElements.forEach(el => el.classList.remove('dark-mode'))
+  }
+
+  function toggleMode(toDarkMode) {
+    if (toDarkMode) {
+      modeBtnEl.classList.remove('light');
+      modeBtnEl.classList.add('dark');
+    } else {
+      modeBtnEl.classList.remove('dark');
+      modeBtnEl.classList.add('light');
+    }
+  }
+
+  function switchThumbsColor() {
+    document.querySelectorAll('.thumbs').forEach(el => {
+      if (el.innerText == '👍🏾') el.innerText = '👍🏻';
+      else if (el.innerText == '👍🏻') el.innerText = '👍🏾';
+      else if (el.innerText == '👎🏾') el.innerText = '👎🏻';
+      else if (el.innerText == '👎🏻') el.innerText = '👎🏾';
+    });
+  }
 
   function updateScore(e) {
     if (['upvoteBtn', 'downvoteBtn'].includes(e.target.id)) {
@@ -73,9 +116,9 @@ export default function initializeEvents() {
         <img src = ${headerImgEl.src} id=${headerImgEl.id}>
         <p>
           <span class='pin-vote' id='pin-upvote'>${Number(upvotesEl.innerText)}</span>
-          <span>👍🏾</span>
+          <span class='thumbs'>${modeBtnEl.classList.contains('light') ? '👍🏾' : '👍🏻'}</span>
           <span class='pin-vote' id='pin-downvote'>${Number(downvotesEl.innerText)}</span>
-          <span>👎🏾</span>
+          <span class='thumbs'>${modeBtnEl.classList.contains('light') ? '👎🏾' : '👎🏻'}</span>
         </p>
       </div>
     `;
