@@ -167,7 +167,7 @@ function initialize() {
     const [currThumbUp, currThumbDown] = _getCurrentThumbs();
     const [prevThumbUp, prevThumbDown] = [nextThumbColor[currThumbUp], nextThumbColor[currThumbDown]];
     const galleryImages = document.querySelectorAll('.gallery-image>img');
-    galleryImages.forEach(img => pins[img.id] = `${pins[img.id]}`.replace(prevThumbUp, currThumbUp).replace(prevThumbDown, currThumbDown));
+    galleryImages.forEach(img => pins[img.id] = pins[img.id].replace(prevThumbUp, currThumbUp).replace(prevThumbDown, currThumbDown));
     _updateGallery();
   }
 
