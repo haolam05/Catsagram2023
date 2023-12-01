@@ -1,0 +1,86 @@
+.mode-btn.dark {
+  background-color: wheat;
+  color: var(--custom-brown);
+}
+
+.mode-btn.dark:hover {
+  background-color: rgb(214, 145, 18);
+  color: white;
+}
+
+body.dark-mode {
+  background-color: var(--custom-dark-brown);
+  color: white;
+}
+
+h1.dark-mode {
+  color: wheat;
+}
+
+#new-cat.dark-mode,
+#pin-cat.dark-mode,
+#unpin-cat.dark-mode,
+#upvoteBtn.dark-mode,
+#downvoteBtn.dark-mode,
+#comment-input button.dark-mode {
+  box-shadow: 2px 2px 4px var(--custom-light-red);
+  background-color: wheat;
+  color: var(--custom-brown);
+  font-weight: bold;
+}
+
+.voteButton.dark-mode:hover,
+#new-cat.dark-mode:hover,
+#pin-cat.dark-mode:hover,
+#unpin-cat.dark-mode:hover,
+#upvoteBtn.dark-mode:hover,
+#downvoteBtn.dark-mode:hover,
+#comment-input button.dark-mode:hover {
+  border: 1px solid wheat;
+  background-color: white;
+}
+
+#post.dark-mode {
+  box-shadow: 1px 1px 4px 4px var(--custom-light-red);
+}
+
+#comment-input input.dark-mode {
+  border-color: var(--custom-light-red);
+}
+
+#comments.dark-mode {
+  border-color: var(--custom-light-red);
+}
+
+#comments.dark-mode .comment,
+#modal.dark-mode #modal-comments .comment {
+  background-color: rgb(222, 88, 88);
+}
+
+body.dark-mode img:hover,
+#comments.dark-mode>.comment:hover,
+#modal.dark-mode #modal-comments .comment:hover {
+  box-shadow: 2px 2px 4px wheat;
+}
+
+#modal.dark-mode #modal-btn>img:hover {
+  box-shadow: -2px 2px 4px wheat;
+}
+
+#modal.dark-mode {
+  box-shadow: 3px 3px 4px 4px var(--custom-light-red);
+  background-color: #9E7E72;
+  color: black;
+}
+
+#modal.dark-mode #modal-comments {
+  border-color: var(--custom-light-red);
+}
+
+#modal.dark-mode>#modal-btn {
+  background-color: white;
+}
+
+#modal.dark-mode #modal-image .gallery-image>p {
+  color: white;
+}
