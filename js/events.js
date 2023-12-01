@@ -43,8 +43,7 @@ function initialize() {
       const upvotes = Number(upvotesEl.innerText);
       const downvotes = Number(downvotesEl.innerText);
       popScoreEl.innerText = upvotes - downvotes;
-      localStorage.setItem('body', bodyEl.innerHTML);
-      localStorage.setItem('mode', bodyEl.classList)
+      _saveDataToLocalStorage();
     }
   }
 
@@ -80,8 +79,7 @@ function initialize() {
       delete pins[headerImgEl.id];
       delete comments[headerImgEl.id];
       galleryEl.innerHTML = Object.values(pins).join('');
-      localStorage.setItem('body', bodyEl.innerHTML);
-      localStorage.setItem('mode', bodyEl.classList)
+      _saveDataToLocalStorage();
     }
   }
 
@@ -90,8 +88,7 @@ function initialize() {
       _replaceHeaderImg(e.target);
       _replaceScores(e.target.parentElement.querySelectorAll('.pin-vote'));
       _replaceComments(e.target.id);
-      localStorage.setItem('body', bodyEl.innerHTML);
-      localStorage.setItem('mode', bodyEl.classList)
+      _saveDataToLocalStorage();
     }
   }
 
@@ -103,8 +100,7 @@ function initialize() {
       modalImageEl.innerHTML = pins[e.target.id];
       modalCommentsEl.innerHTML = comments[e.target.id];
       modeBtnEl.classList.contains('dark') ? modalEl.classList.add('dark-mode') : modalEl.classList.remove('dark-mode');
-      localStorage.setItem('body', bodyEl.innerHTML);
-      localStorage.setItem('mode', bodyEl.classList)
+      _saveDataToLocalStorage();
     }
   }
 
