@@ -108,7 +108,7 @@ export default function initializeEvents() {
   function updateComments() {
     const div = document.createElement('div');
     div.classList.add('comment');
-    div.innerText = commentInputEl.value.slice(0, MAX_CHAR_COMMENT);
+    div.innerText = commentInputEl.value.slice(0, MAX_CHAR_COMMENT).toLowerCase();
     commentsEl.appendChild(div);
     commentInputEl.value = '';
     if (headerImgEl.id in comments) saveToComments();
