@@ -1,6 +1,7 @@
 import addCatToContainer from "./index.js";
 
 export default function initializeEvents() {
+  const MAX_CHAR_COMMENT = 24;
   const bodyEl = document.body;
   const h1El = document.querySelector('h1');
   const modeBtnEl = document.querySelector('#mode-btn');
@@ -107,7 +108,7 @@ export default function initializeEvents() {
   function updateComments() {
     const div = document.createElement('div');
     div.classList.add('comment');
-    div.innerText = commentInputEl.value.slice(0, 40);
+    div.innerText = commentInputEl.value.slice(0, MAX_CHAR_COMMENT);
     commentsEl.appendChild(div);
     commentInputEl.value = '';
     if (headerImgEl.id in comments) saveToComments();

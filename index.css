@@ -361,6 +361,7 @@ img:hover,
   height: 300px;
   align-self: center;
   overflow-y: scroll;
+  width: fit-content;
 }
 
 #modal-comments.comment {
