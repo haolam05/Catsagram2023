@@ -428,7 +428,6 @@ h1.dark-mode {
 
 #post.dark-mode {
   box-shadow: 1px 1px 4px 4px var(--custom-light-red);
-  ;
 }
 
 #comment-input input.dark-mode {
@@ -445,8 +444,13 @@ h1.dark-mode {
 }
 
 body.dark-mode img:hover,
-#modal.dark-mode #modal-comments .comment:hover #comments.dark-mode .comment:hover {
+#comments.dark-mode>.comment:hover,
+#modal.dark-mode #modal-comments .comment:hover {
   box-shadow: 2px 2px 4px wheat;
+}
+
+#modal.dark-mode #modal-btn>img:hover {
+  box-shadow: -2px 2px 4px wheat;
 }
 
 #modal.dark-mode {
