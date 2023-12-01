@@ -1,5 +1,4 @@
 import initializeEvents from './events.js';
-import initializeElements from './elements.js';
 
 async function initializeCatsagram() {
   createCats();
@@ -13,7 +12,7 @@ async function initializeCatsagram() {
   createCommentInput();
   createUserPosts();
   createPostDetail();
-  initializeEvents(initializeElements());
+  initializeEvents();
 }
 
 function createCats() {

@@ -1,12 +1,20 @@
 import addCatToContainer from "./index.js";
+import initializeElements from './elements.js';
 
-export default function initializeEvents({
-  MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements, pins, comments
-}) {
+export default function initializeEvents() {
+  initialize(initializeElements());
+}
+
+function initialize() {
+  let pins = {};
+  let comments = {};
+  if (_localStorageHasData()) _restoreData();
+  let {
+    MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements
+  } = initializeElements();
   addEventListeners();
 
   function addEventListeners() {
-    restoreData();
     modeBtnEl.addEventListener('click', switchMode);
     votesContainerEl.addEventListener('click', updateScore);
     submitCommentEl.addEventListener('click', updateComments);
@@ -18,16 +26,12 @@ export default function initializeEvents({
     modalBtnEl.addEventListener('click', closeModal);
   }
 
-  function restoreData() {
-    // if (localStorage.getItem('body') != null) bodyEl.innerHTML = localStorage.getItem('body');
-  }
-
   function switchMode(e) {
     const toDarkMode = e.target.classList.contains('light');
     _toggleMode(toDarkMode);
     toDarkMode ? _addDarkModeToElements() : _removeDarkmModeForElements();
     _switchThumbsColor();
-    // localStorage.setItem('body', bodyEl.innerHTML);
+    _saveDataToLocalStorage();
   }
 
   function updateScore(e) {
@@ -39,7 +43,8 @@ export default function initializeEvents({
       const upvotes = Number(upvotesEl.innerText);
       const downvotes = Number(downvotesEl.innerText);
       popScoreEl.innerText = upvotes - downvotes;
-      // localStorage.setItem('body', bodyEl.innerHTML);
+      localStorage.setItem('body', bodyEl.innerHTML);
+      localStorage.setItem('mode', bodyEl.classList)
     }
   }
 
@@ -50,7 +55,7 @@ export default function initializeEvents({
     commentsEl.appendChild(div);
     commentInputEl.value = '';
     if (headerImgEl.id in comments) _saveToComments();
-    // localStorage.setItem('body', bodyEl.innerHTML);
+    _saveDataToLocalStorage();
   }
 
   async function updateHeaderImg() {
@@ -61,13 +66,13 @@ export default function initializeEvents({
     downvotesEl.innerText = 0;
     popScoreEl.innerText = 0;
     commentsEl.innerText = '';
-    // localStorage.setItem('body', bodyEl.innerHTML);
+    _saveDataToLocalStorage();
   }
 
   function pinCat() {
     saveToGallery();
     _saveToComments();
-    // localStorage.setItem('body', bodyEl.innerHTML);
+    _saveDataToLocalStorage();
   }
 
   function unpinCat() {
@@ -75,7 +80,8 @@ export default function initializeEvents({
       delete pins[headerImgEl.id];
       delete comments[headerImgEl.id];
       galleryEl.innerHTML = Object.values(pins).join('');
-      // localStorage.setItem('body', bodyEl.innerHTML);
+      localStorage.setItem('body', bodyEl.innerHTML);
+      localStorage.setItem('mode', bodyEl.classList)
     }
   }
 
@@ -84,7 +90,8 @@ export default function initializeEvents({
       _replaceHeaderImg(e.target);
       _replaceScores(e.target.parentElement.querySelectorAll('.pin-vote'));
       _replaceComments(e.target.id);
-      // localStorage.setItem('body', bodyEl.innerHTML);
+      localStorage.setItem('body', bodyEl.innerHTML);
+      localStorage.setItem('mode', bodyEl.classList)
     }
   }
 
@@ -96,7 +103,8 @@ export default function initializeEvents({
       modalImageEl.innerHTML = pins[e.target.id];
       modalCommentsEl.innerHTML = comments[e.target.id];
       modeBtnEl.classList.contains('dark') ? modalEl.classList.add('dark-mode') : modalEl.classList.remove('dark-mode');
-      // localStorage.setItem('body', bodyEl.innerHTML);
+      localStorage.setItem('body', bodyEl.innerHTML);
+      localStorage.setItem('mode', bodyEl.classList)
     }
   }
 
@@ -104,13 +112,31 @@ export default function initializeEvents({
     _unblurElements();
     catsContainerEl.classList.remove('hidden');
     modalEl.classList.add('hidden');
-    // localStorage.setItem('body', bodyEl.innerHTML);
+    _saveDataToLocalStorage();
   }
 
 
   /****************************************************************************************/
   /*********************************** HELPER FUNCTIONS ***********************************/
   /****************************************************************************************/
+  function _localStorageHasData() {
+    return localStorage.getItem('body') != null;
+  }
+
+  function _restoreData() {
+    document.body.innerHTML = localStorage.getItem('body');
+    document.body.classList = localStorage.getItem('mode');
+    pins = JSON.parse(localStorage.getItem('pins'));
+    comments = JSON.parse(localStorage.getItem('comments'));
+  }
+
+  function _saveDataToLocalStorage() {
+    localStorage.setItem('body', document.body.innerHTML);
+    localStorage.setItem('mode', document.body.classList);
+    localStorage.setItem('pins', JSON.stringify(pins));
+    localStorage.setItem('comments', JSON.stringify(comments));
+  }
+
   function _addDarkModeToElements() {
     modeAffectElements.forEach(el => el.classList.add('dark-mode'))
   }
@@ -141,7 +167,7 @@ export default function initializeEvents({
     const [currThumbUp, currThumbDown] = _getCurrentThumbs();
     const [prevThumbUp, prevThumbDown] = [nextThumbColor[currThumbUp], nextThumbColor[currThumbDown]];
     const galleryImages = document.querySelectorAll('.gallery-image>img');
-    galleryImages.forEach(img => pins[img.id] = pins[img.id].replace(prevThumbUp, currThumbUp).replace(prevThumbDown, currThumbDown));
+    galleryImages.forEach(img => pins[img.id] = `${pins[img.id]}`.replace(prevThumbUp, currThumbUp).replace(prevThumbDown, currThumbDown));
     _updateGallery();
   }
 

@@ -63,43 +63,30 @@ export default function initializeElements() {
     submitCommentEl
   ];
 
-  const pins = {};
-  const comments = {};
-
   return {
     MAX_CHAR_COMMENT,
     bodyEl,
-    h1El,
     modeBtnEl,
     votesContainerEl,
     votesContainerThumbsEl,
-    upvoteBtnEl,
-    downvoteBtnEl,
     popScoreEl,
-    popScoreLabelEl,
     upvotesEl,
     downvotesEl,
     submitCommentEl,
     commentInputEl,
-    commentInputLabelEl,
     commentsEl,
     galleryEl,
     newCatEl,
     pinCatEl,
     unpinCatEl,
-    postEl,
     modalEl,
     modalImageEl,
     modalCommentsEl,
     modalBtnEl,
-    imageButtonsEl,
-    imageContainerEl,
     catsContainerEl,
     headerImgEl,
     nextThumbColor,
     modeAffectElements,
-    blurAffectedElements,
-    pins,
-    comments
+    blurAffectedElements
   };
 }
