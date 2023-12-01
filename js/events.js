@@ -1,13 +1,12 @@
 import addCatToContainer from "./index.js";
 
-export default function initializeEvents(
-  {
-    MAX_CHAR_COMMENT, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements, pins, comments
-  }
-) {
+export default function initializeEvents({
+  MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements, pins, comments
+}) {
   addEventListeners();
 
   function addEventListeners() {
+    restoreData();
     modeBtnEl.addEventListener('click', switchMode);
     votesContainerEl.addEventListener('click', updateScore);
     submitCommentEl.addEventListener('click', updateComments);
@@ -19,11 +18,16 @@ export default function initializeEvents(
     modalBtnEl.addEventListener('click', closeModal);
   }
 
+  function restoreData() {
+    // if (localStorage.getItem('body') != null) bodyEl.innerHTML = localStorage.getItem('body');
+  }
+
   function switchMode(e) {
     const toDarkMode = e.target.classList.contains('light');
     _toggleMode(toDarkMode);
     toDarkMode ? _addDarkModeToElements() : _removeDarkmModeForElements();
     _switchThumbsColor();
+    // localStorage.setItem('body', bodyEl.innerHTML);
   }
 
   function updateScore(e) {
@@ -35,6 +39,7 @@ export default function initializeEvents(
       const upvotes = Number(upvotesEl.innerText);
       const downvotes = Number(downvotesEl.innerText);
       popScoreEl.innerText = upvotes - downvotes;
+      // localStorage.setItem('body', bodyEl.innerHTML);
     }
   }
 
@@ -45,6 +50,7 @@ export default function initializeEvents(
     commentsEl.appendChild(div);
     commentInputEl.value = '';
     if (headerImgEl.id in comments) _saveToComments();
+    // localStorage.setItem('body', bodyEl.innerHTML);
   }
 
   async function updateHeaderImg() {
@@ -55,11 +61,13 @@ export default function initializeEvents(
     downvotesEl.innerText = 0;
     popScoreEl.innerText = 0;
     commentsEl.innerText = '';
+    // localStorage.setItem('body', bodyEl.innerHTML);
   }
 
   function pinCat() {
     saveToGallery();
     _saveToComments();
+    // localStorage.setItem('body', bodyEl.innerHTML);
   }
 
   function unpinCat() {
@@ -67,6 +75,7 @@ export default function initializeEvents(
       delete pins[headerImgEl.id];
       delete comments[headerImgEl.id];
       galleryEl.innerHTML = Object.values(pins).join('');
+      // localStorage.setItem('body', bodyEl.innerHTML);
     }
   }
 
@@ -75,6 +84,7 @@ export default function initializeEvents(
       _replaceHeaderImg(e.target);
       _replaceScores(e.target.parentElement.querySelectorAll('.pin-vote'));
       _replaceComments(e.target.id);
+      // localStorage.setItem('body', bodyEl.innerHTML);
     }
   }
 
@@ -86,6 +96,7 @@ export default function initializeEvents(
       modalImageEl.innerHTML = pins[e.target.id];
       modalCommentsEl.innerHTML = comments[e.target.id];
       modeBtnEl.classList.contains('dark') ? modalEl.classList.add('dark-mode') : modalEl.classList.remove('dark-mode');
+      // localStorage.setItem('body', bodyEl.innerHTML);
     }
   }
 
@@ -93,6 +104,7 @@ export default function initializeEvents(
     _unblurElements();
     catsContainerEl.classList.remove('hidden');
     modalEl.classList.add('hidden');
+    // localStorage.setItem('body', bodyEl.innerHTML);
   }
 
 
@@ -134,8 +146,10 @@ export default function initializeEvents(
   }
 
   function _updateModal() {
-    const id = modalImageEl.querySelector('.gallery-image>img').id;
-    modalImageEl.innerHTML = pins[id];
+    if (!modalImageEl.parentElement.classList.contains('hidden')) {
+      const id = modalImageEl.querySelector('.gallery-image>img').id;
+      modalImageEl.innerHTML = pins[id];
+    }
   }
 
   function _getCurrentThumbs() {
