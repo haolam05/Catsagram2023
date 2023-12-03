@@ -12,7 +12,8 @@ function initialize() {
   let {
     MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements, modeBtnTextEl, catLogoEl
   } = initializeElements();
-  addEventListeners();
+  // addEventListeners();
+  clearStorage();
 
   function addEventListeners() {
     modeBtnEl.addEventListener('click', switchMode);
@@ -24,6 +25,10 @@ function initialize() {
     galleryEl.addEventListener('click', showCat);
     galleryEl.addEventListener('click', showModal);
     modalBtnEl.addEventListener('click', closeModal);
+  }
+
+  function clearStorage() {
+    ['body', 'mode', 'pins', 'comments'].forEach(key => localStorage.removeItem(key));
   }
 
   function switchMode(e) {
