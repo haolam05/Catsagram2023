@@ -79,7 +79,7 @@ function initialize() {
   async function updateHeaderImg() {
     headerImgEl.remove();
     await addCatToContainer();
-    headerImgEl = document.querySelector('img');
+    headerImgEl = document.querySelector('#img-container>img');
     upvotesEl.innerText = 0;
     downvotesEl.innerText = 0;
     popScoreEl.innerText = 0;

@@ -3,7 +3,7 @@ export default function initializeElements() {
   const bodyEl = document.body;
   const h1El = document.querySelector('h1');
   const modeBtnEl = document.querySelector('#mode-btn');
-  const modeBtnTextEl = modeBtnEl.querySelector('span');
+  const modeBtnTextEl = document.querySelector('#mode-btn>span');
   const votesContainerEl = document.querySelector('#votes-container');
   const votesContainerThumbsEl = votesContainerEl.querySelectorAll('.thumbs');
   const upvoteBtnEl = document.querySelector('#upvoteBtn');
@@ -28,7 +28,7 @@ export default function initializeElements() {
   const imageButtonsEl = document.querySelector('#image-buttons');
   const imageContainerEl = document.querySelector('#img-container');
   const catsContainerEl = document.querySelector('#cats-container');
-  let headerImgEl = document.querySelector('img');
+  let headerImgEl = document.querySelector('#img-container>img');
 
   const nextThumbColor = {
     '👍🏾': '👍🏻',
