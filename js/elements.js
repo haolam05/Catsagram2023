@@ -65,6 +65,13 @@ export default function initializeElements() {
     submitCommentEl
   ];
 
+  const localStorageItems = [
+    'body',
+    'mode',
+    'pins',
+    'comments'
+  ]
+
   return {
     MAX_CHAR_COMMENT,
     bodyEl,
@@ -91,6 +98,7 @@ export default function initializeElements() {
     modeAffectElements,
     blurAffectedElements,
     modeBtnTextEl,
-    catLogoEl
+    catLogoEl,
+    localStorageItems
   };
 }

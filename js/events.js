@@ -8,12 +8,15 @@ export default function initializeEvents() {
 function initialize() {
   let pins = {};
   let comments = {};
-  if (_localStorageHasData()) _restoreData();
+  if (confirm('Do you want to keep your changes?')) {
+    if (_localStorageHasData()) _restoreData();
+  } else {
+    clearStorage();
+  }
   let {
-    MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements, modeBtnTextEl, catLogoEl
+    MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements, modeBtnTextEl, catLogoEl, localStorageItems
   } = initializeElements();
   addEventListeners();
-  // clearStorage();
 
   function addEventListeners() {
     modeBtnEl.addEventListener('click', switchMode);
@@ -28,7 +31,7 @@ function initialize() {
   }
 
   function clearStorage() {
-    ['body', 'mode', 'pins', 'comments'].forEach(key => localStorage.removeItem(key));
+    localStorageItems.forEach(key => localStorage.removeItem(key));
   }
 
   function switchMode(e) {
