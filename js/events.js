@@ -127,8 +127,8 @@ function initialize() {
   }
 
   function _saveDataToLocalStorage() {
-    localStorage.setItem('body', document.body.innerHTML);
-    localStorage.setItem('mode', document.body.classList);
+    localStorage.setItem('body', bodyEl.innerHTML);
+    localStorage.setItem('mode', bodyEl.classList);
     localStorage.setItem('pins', JSON.stringify(pins));
     localStorage.setItem('comments', JSON.stringify(comments));
   }
@@ -163,7 +163,7 @@ function initialize() {
     const [currThumbUp, currThumbDown] = _getCurrentThumbs();
     const [prevThumbUp, prevThumbDown] = [nextThumbColor[currThumbUp], nextThumbColor[currThumbDown]];
     const galleryImages = document.querySelectorAll('.gallery-image>img');
-    galleryImages.forEach(img => pins[img.id] = pins[img.id].replace(prevThumbUp, currThumbUp).replace(prevThumbDown, currThumbDown));
+    galleryImages.forEach(img => (img.id in pins) && (pins[img.id] = pins[img.id].replace(prevThumbUp, currThumbUp).replace(prevThumbDown, currThumbDown)));
     _updateGallery();
   }
 
