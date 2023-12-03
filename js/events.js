@@ -14,7 +14,7 @@ function initialize() {
     clearStorage();
   }
   let {
-    MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements, modeBtnTextEl, catLogoEl, localStorageItems
+    MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements, modeBtnTextEl, catLogoEl
   } = initializeElements();
   addEventListeners();
 
@@ -28,7 +28,26 @@ function initialize() {
     galleryEl.addEventListener('click', showCat);
     galleryEl.addEventListener('click', showModal);
     modalBtnEl.addEventListener('click', closeModal);
+
+
+    headerImgEl.addEventListener('dragstart', dragStartHanlder);
+    galleryEl.addEventListener('dragover', dragoverHandler);
+    galleryEl.addEventListener('drop', dropHandler);
   }
+
+  function dragStartHanlder(e) {
+    e.dataTransfer.setData("text/plain", e.target.id);
+  }
+
+  function dragoverHandler(e) {
+    e.preventDefault();
+  }
+
+  function dropHandler(e) {
+    e.preventDefault();
+    pinCat();
+  }
+
 
   function clearStorage() {
     ['body', 'mode', 'pins', 'comments'].forEach(key => localStorage.removeItem(key));
