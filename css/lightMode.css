@@ -108,6 +108,7 @@ h1 {
   background-color: var(--custom-dark-brown);
   text-align: center;
   color: white;
+  overflow-wrap: break-word;
 }
 
 #gallery {

@@ -1,5 +1,5 @@
 export default function initializeElements() {
-  const MAX_CHAR_COMMENT = 24;
+  const MAX_CHAR_COMMENT = 100;
   const bodyEl = document.body;
   const h1El = document.querySelector('h1');
   const modeBtnEl = document.querySelector('#mode-btn');
