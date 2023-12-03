@@ -139,3 +139,11 @@
     transform: translate(0vw, 0vh);
   }
 }
+
+#cat-cursor {
+  position: fixed;
+  animation: rotate 1s infinite linear;
+  background-color: #ea9a06;
+  border-radius: 50%;
+  padding: 5px;
+}

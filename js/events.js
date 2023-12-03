@@ -10,11 +10,12 @@ function initialize() {
   let comments = {};
   if (_localStorageHasData()) _restoreData();
   let {
-    MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements
+    MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements, catCursorEl
   } = initializeElements();
   addEventListeners();
 
   function addEventListeners() {
+    document.addEventListener('mousemove', cursorHandler);
     modeBtnEl.addEventListener('click', switchMode);
     votesContainerEl.addEventListener('click', updateScore);
     submitCommentEl.addEventListener('click', updateComments);
@@ -24,6 +25,11 @@ function initialize() {
     galleryEl.addEventListener('click', showCat);
     galleryEl.addEventListener('click', showModal);
     modalBtnEl.addEventListener('click', closeModal);
+  }
+
+  function cursorHandler(e) {
+    catCursorEl.style.left = (e.clientX - 25) + 'px';
+    catCursorEl.style.bottom = (e.clientY - 25) + 'px';
   }
 
   function switchMode(e) {
@@ -48,13 +54,15 @@ function initialize() {
   }
 
   function updateComments() {
-    const div = document.createElement('div');
-    div.classList.add('comment');
-    div.innerText = commentInputEl.value.slice(0, MAX_CHAR_COMMENT).toLowerCase();
-    commentsEl.appendChild(div);
-    commentInputEl.value = '';
-    if (headerImgEl.id in comments) _saveToComments();
-    _saveDataToLocalStorage();
+    if (commentInputEl.value) {
+      const div = document.createElement('div');
+      div.classList.add('comment');
+      div.innerText = commentInputEl.value.slice(0, MAX_CHAR_COMMENT).toLowerCase();
+      commentsEl.appendChild(div);
+      commentInputEl.value = '';
+      if (headerImgEl.id in comments) _saveToComments();
+      _saveDataToLocalStorage();
+    }
   }
 
   async function updateHeaderImg() {

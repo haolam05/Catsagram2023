@@ -12,6 +12,7 @@ async function initializeCatsagram() {
   createCommentInput();
   createUserPosts();
   createPostDetail();
+  createCatCursor();
   initializeEvents();
 }
 
@@ -135,6 +136,13 @@ function createPostDetail() {
     <div id='modal-comments'>comments</div>
     <button id='modal-btn'><img src='./images/brown-X.png'></button>
   `;
+  document.body.appendChild(div);
+}
+
+function createCatCursor() {
+  const div = document.createElement('div');
+  div.setAttribute('id', 'cat-cursor');
+  div.innerText = '🐈‍⬛';
   document.body.appendChild(div);
 }
 

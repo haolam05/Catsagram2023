@@ -27,6 +27,7 @@ export default function initializeElements() {
   const imageButtonsEl = document.querySelector('#image-buttons');
   const imageContainerEl = document.querySelector('#img-container');
   const catsContainerEl = document.querySelector('#cats-container');
+  const catCursorEl = document.querySelector('#cat-cursor');
   let headerImgEl = document.querySelector('img');
 
   const nextThumbColor = {
@@ -87,6 +88,7 @@ export default function initializeElements() {
     headerImgEl,
     nextThumbColor,
     modeAffectElements,
-    blurAffectedElements
+    blurAffectedElements,
+    catCursorEl
   };
 }
