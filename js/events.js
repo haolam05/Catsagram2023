@@ -12,8 +12,8 @@ function initialize() {
   let {
     MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements, modeBtnTextEl, catLogoEl
   } = initializeElements();
-  // addEventListeners();
-  clearStorage();
+  addEventListeners();
+  // clearStorage();
 
   function addEventListeners() {
     modeBtnEl.addEventListener('click', switchMode);
