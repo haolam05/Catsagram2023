@@ -4,7 +4,6 @@ export default function initializeElements() {
   const h1El = document.querySelector('h1');
   const modeBtnEl = document.querySelector('#mode-btn');
   const modeBtnTextEl = modeBtnEl.querySelector('span');
-  const catLogoEl = modeBtnEl.querySelector('#cat-logo');
   const votesContainerEl = document.querySelector('#votes-container');
   const votesContainerThumbsEl = votesContainerEl.querySelectorAll('.thumbs');
   const upvoteBtnEl = document.querySelector('#upvoteBtn');
@@ -90,7 +89,6 @@ export default function initializeElements() {
     nextThumbColor,
     modeAffectElements,
     blurAffectedElements,
-    modeBtnTextEl,
-    catLogoEl
+    modeBtnTextEl
   };
 }
