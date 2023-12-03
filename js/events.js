@@ -174,12 +174,10 @@ function initialize() {
       modeBtnEl.classList.remove('light');
       modeBtnEl.classList.add('dark');
       modeBtnTextEl.innerText = 'LightMode';
-      catLogoEl.innerText = '🐈‍⬛';
     } else {
       modeBtnEl.classList.remove('dark');
       modeBtnEl.classList.add('light');
       modeBtnTextEl.innerText = 'DarkMode';
-      catLogoEl.innerText = '🐈';
     }
   }
 

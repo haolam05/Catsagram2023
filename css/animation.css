@@ -142,11 +142,7 @@
 
 #cat-logo {
   position: fixed;
-  margin-left: 10px;
-  top: 22px;
-  transition-property: transform;
-  transition-duration: 2s;
-  transition-timing-function: ease-in-out;
+  top: 5px;
   animation: walk;
   animation-direction: alternate;
   animation-duration: 20s;
@@ -155,23 +151,11 @@
 }
 
 @keyframes walk {
-  0% {
-    transform: translate(0, 0);
+  from {
+    transform: translateX(-250px);
   }
 
-  25% {
-    transform: translate(-120px, 0);
-  }
-
-  50% {
-    transform: translate(-120px, -25px);
-  }
-
-  75% {
-    transform: translate(0, -25px);
-  }
-
-  100% {
-    transform: translate(0, 0);
+  to {
+    transform: translateX(140px);
   }
 }

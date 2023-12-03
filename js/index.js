@@ -37,7 +37,7 @@ function createDarkModeBtn() {
   btn.classList.add('mode-btn');
   btn.innerHTML = `
     <span>DarkMode</span>
-    <span id='cat-logo'>🐈</span>
+    <span id='cat-logo'><img src='./images/logo.gif'></span>
   `;
   document.body.appendChild(btn);
 }
@@ -140,12 +140,5 @@ function createPostDetail() {
   `;
   document.body.appendChild(div);
 }
-
-// function createCatCursor() {
-//   const div = document.createElement('div');
-//   div.setAttribute('id', 'cat-cursor');
-//   div.innerText = '🐈‍⬛';
-//   document.body.appendChild(div);
-// }
 
 window.onload = initializeCatsagram;
