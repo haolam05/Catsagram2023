@@ -40,7 +40,7 @@ function initialize() {
   }
 
   function clearStorage() {
-    ['body', 'mode', 'pins', 'comments'].forEach(key => localStorage.removeItem(key));
+    ['body', 'mode', 'pins', 'pinsOrder', 'comments'].forEach(key => localStorage.removeItem(key));
   }
 
   function switchMode(e) {
@@ -277,7 +277,7 @@ function initialize() {
 
   function _swapGalleryImage(e) {
     const id = e.dataTransfer.getData("text");
-    if (id != e.target.id) {
+    if (id != e.target.id && e.target.classList.contains('gallery-img')) {
       const idx1 = pinsOrder.indexOf(id);
       const idx2 = pinsOrder.indexOf(e.target.id);
       [pinsOrder[idx1], pinsOrder[idx2]] = [pinsOrder[idx2], pinsOrder[idx1]];
