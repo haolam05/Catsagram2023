@@ -12,7 +12,6 @@ async function initializeCatsagram() {
   createCommentInput();
   createUserPosts();
   createPostDetail();
-  createCatCursor();
   initializeEvents();
 }
 
@@ -36,7 +35,10 @@ function createDarkModeBtn() {
   btn.setAttribute('id', 'mode-btn');
   btn.classList.add('light');
   btn.classList.add('mode-btn');
-  btn.innerText = 'DarkMode';
+  btn.innerHTML = `
+    <span>DarkMode</span>
+    <span id='cat-logo'>🐈</span>
+  `;
   document.body.appendChild(btn);
 }
 
@@ -139,11 +141,11 @@ function createPostDetail() {
   document.body.appendChild(div);
 }
 
-function createCatCursor() {
-  const div = document.createElement('div');
-  div.setAttribute('id', 'cat-cursor');
-  div.innerText = '🐈‍⬛';
-  document.body.appendChild(div);
-}
+// function createCatCursor() {
+//   const div = document.createElement('div');
+//   div.setAttribute('id', 'cat-cursor');
+//   div.innerText = '🐈‍⬛';
+//   document.body.appendChild(div);
+// }
 
 window.onload = initializeCatsagram;

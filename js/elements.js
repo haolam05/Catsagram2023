@@ -3,6 +3,8 @@ export default function initializeElements() {
   const bodyEl = document.body;
   const h1El = document.querySelector('h1');
   const modeBtnEl = document.querySelector('#mode-btn');
+  const modeBtnTextEl = modeBtnEl.querySelector('span');
+  const catLogoEl = modeBtnEl.querySelector('#cat-logo');
   const votesContainerEl = document.querySelector('#votes-container');
   const votesContainerThumbsEl = votesContainerEl.querySelectorAll('.thumbs');
   const upvoteBtnEl = document.querySelector('#upvoteBtn');
@@ -27,7 +29,6 @@ export default function initializeElements() {
   const imageButtonsEl = document.querySelector('#image-buttons');
   const imageContainerEl = document.querySelector('#img-container');
   const catsContainerEl = document.querySelector('#cats-container');
-  const catCursorEl = document.querySelector('#cat-cursor');
   let headerImgEl = document.querySelector('img');
 
   const nextThumbColor = {
@@ -89,6 +90,7 @@ export default function initializeElements() {
     nextThumbColor,
     modeAffectElements,
     blurAffectedElements,
-    catCursorEl
+    modeBtnTextEl,
+    catLogoEl
   };
 }

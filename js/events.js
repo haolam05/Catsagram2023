@@ -10,12 +10,11 @@ function initialize() {
   let comments = {};
   if (_localStorageHasData()) _restoreData();
   let {
-    MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements, catCursorEl
+    MAX_CHAR_COMMENT, bodyEl, modeBtnEl, votesContainerEl, votesContainerThumbsEl, popScoreEl, upvotesEl, downvotesEl, submitCommentEl, commentInputEl, commentsEl, galleryEl, newCatEl, pinCatEl, unpinCatEl, modalEl, modalImageEl, modalCommentsEl, modalBtnEl, catsContainerEl, headerImgEl, nextThumbColor, modeAffectElements, blurAffectedElements, modeBtnTextEl, catLogoEl
   } = initializeElements();
   addEventListeners();
 
   function addEventListeners() {
-    document.addEventListener('mousemove', cursorHandler);
     modeBtnEl.addEventListener('click', switchMode);
     votesContainerEl.addEventListener('click', updateScore);
     submitCommentEl.addEventListener('click', updateComments);
@@ -25,11 +24,6 @@ function initialize() {
     galleryEl.addEventListener('click', showCat);
     galleryEl.addEventListener('click', showModal);
     modalBtnEl.addEventListener('click', closeModal);
-  }
-
-  function cursorHandler(e) {
-    catCursorEl.style.left = (e.clientX - 25) + 'px';
-    catCursorEl.style.bottom = (e.clientY - 25) + 'px';
   }
 
   function switchMode(e) {
@@ -153,11 +147,13 @@ function initialize() {
     if (toDarkMode) {
       modeBtnEl.classList.remove('light');
       modeBtnEl.classList.add('dark');
-      modeBtnEl.innerText = 'Lightmode'
+      modeBtnTextEl.innerText = 'LightMode';
+      catLogoEl.innerText = '🐈‍⬛';
     } else {
       modeBtnEl.classList.remove('dark');
       modeBtnEl.classList.add('light');
-      modeBtnEl.innerText = 'Darkmode'
+      modeBtnTextEl.innerText = 'DarkMode';
+      catLogoEl.innerText = '🐈';
     }
   }
 

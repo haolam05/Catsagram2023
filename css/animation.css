@@ -140,10 +140,38 @@
   }
 }
 
-#cat-cursor {
+#cat-logo {
   position: fixed;
-  animation: rotate 1s infinite linear;
-  background-color: #ea9a06;
-  border-radius: 50%;
-  padding: 5px;
+  margin-left: 10px;
+  top: 10px;
+  transition-property: transform;
+  transition-duration: 2s;
+  transition-timing-function: ease-in-out;
+  animation: walk;
+  animation-direction: alternate;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes walk {
+  0% {
+    transform: translateX(30vw);
+  }
+
+  25% {
+    transform: translateY(12px);
+  }
+
+  50% {
+    transform: translateX(-40vw);
+  }
+
+  75% {
+    transform: translateY(-12px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
