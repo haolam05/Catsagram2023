@@ -6,6 +6,7 @@ export default function initializeEvents() {
 }
 
 function initialize() {
+  let pinsOrder = [];
   let pins = {};
   let comments = {};
   if (confirm('Do you want to keep your changes?')) {
@@ -19,6 +20,7 @@ function initialize() {
   addEventListeners();
 
   function addEventListeners() {
+    // Affect local storage status
     modeBtnEl.addEventListener('click', switchMode);
     votesContainerEl.addEventListener('click', updateScore);
     submitCommentEl.addEventListener('click', updateComments);
@@ -28,26 +30,14 @@ function initialize() {
     galleryEl.addEventListener('click', showCat);
     galleryEl.addEventListener('click', showModal);
     modalBtnEl.addEventListener('click', closeModal);
+    galleryEl.addEventListener('drop', dropHandlerForSwitchingCatPosition);
 
-
-    headerImgEl.addEventListener('dragstart', dragStartHanlder);
-    galleryEl.addEventListener('dragover', dragoverHandler);
-    galleryEl.addEventListener('drop', dropHandler);
+    // Does not affect local storage status
+    headerImgEl.addEventListener('dragstart', _dragStartHanlder);
+    galleryEl.addEventListener('dragover', _dragoverHandler);
+    galleryEl.addEventListener('drop', _dropHandlerForPinCat);
+    galleryEl.addEventListener('dragstart', _dragStartHanlder);
   }
-
-  function dragStartHanlder(e) {
-    e.dataTransfer.setData("text/plain", e.target.id);
-  }
-
-  function dragoverHandler(e) {
-    e.preventDefault();
-  }
-
-  function dropHandler(e) {
-    e.preventDefault();
-    pinCat();
-  }
-
 
   function clearStorage() {
     ['body', 'mode', 'pins', 'comments'].forEach(key => localStorage.removeItem(key));
@@ -107,7 +97,8 @@ function initialize() {
     if (headerImgEl.id in pins) {
       delete pins[headerImgEl.id];
       delete comments[headerImgEl.id];
-      galleryEl.innerHTML = Object.values(pins).join('');
+      pinsOrder.splice(pinsOrder.indexOf(headerImgEl.id), 1);
+      _updateGallery();
       _saveDataToLocalStorage();
     }
   }
@@ -140,6 +131,12 @@ function initialize() {
     _saveDataToLocalStorage();
   }
 
+  function dropHandlerForSwitchingCatPosition(e) {
+    e.preventDefault();
+    _swapGalleryImage(e);
+    _updateGallery();
+    _saveDataToLocalStorage();
+  }
 
   /****************************************************************************************/
   /*********************************** HELPER FUNCTIONS ***********************************/
@@ -151,6 +148,7 @@ function initialize() {
   function _restoreData() {
     document.body.innerHTML = localStorage.getItem('body');
     document.body.classList = localStorage.getItem('mode');
+    pinsOrder = JSON.parse(localStorage.getItem('pinsOrder'));
     pins = JSON.parse(localStorage.getItem('pins'));
     comments = JSON.parse(localStorage.getItem('comments'));
   }
@@ -158,6 +156,7 @@ function initialize() {
   function _saveDataToLocalStorage() {
     localStorage.setItem('body', bodyEl.innerHTML);
     localStorage.setItem('mode', bodyEl.classList);
+    localStorage.setItem('pinsOrder', JSON.stringify(pinsOrder));
     localStorage.setItem('pins', JSON.stringify(pins));
     localStorage.setItem('comments', JSON.stringify(comments));
   }
@@ -222,10 +221,12 @@ function initialize() {
         </p>
       </div>
     `;
+    if (!pinsOrder.includes(headerImgEl.id)) pinsOrder.push(headerImgEl.id);
   }
 
   function _updateGallery() {
-    galleryEl.innerHTML = Object.values(pins).join('');
+    galleryEl.innerHTML = pinsOrder.map(id => pins[id]).join('');
+
   }
 
   function saveToGallery() {
@@ -259,5 +260,27 @@ function initialize() {
 
   function _unblurElements() {
     blurAffectedElements.forEach(el => el.classList.remove('blur'));
+  }
+
+  function _dragStartHanlder(e) {
+    e.dataTransfer.setData("text/plain", e.target.id);
+  }
+
+  function _dragoverHandler(e) {
+    e.preventDefault();
+  }
+
+  function _dropHandlerForPinCat(e) {
+    e.preventDefault();
+    pinCat();
+  }
+
+  function _swapGalleryImage(e) {
+    const id = e.dataTransfer.getData("text");
+    if (id != e.target.id) {
+      const idx1 = pinsOrder.indexOf(id);
+      const idx2 = pinsOrder.indexOf(e.target.id);
+      [pinsOrder[idx1], pinsOrder[idx2]] = [pinsOrder[idx2], pinsOrder[idx1]];
+    }
   }
 }
