@@ -31,7 +31,7 @@ function initialize() {
   }
 
   function clearStorage() {
-    localStorageItems.forEach(key => localStorage.removeItem(key));
+    ['body', 'mode', 'pins', 'comments'].forEach(key => localStorage.removeItem(key));
   }
 
   function switchMode(e) {
