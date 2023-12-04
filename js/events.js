@@ -80,6 +80,7 @@ function initialize() {
     headerImgEl.remove();
     await addCatToContainer();
     headerImgEl = document.querySelector('#img-container>img');
+    headerImgEl.addEventListener('dragstart', _dragStartHanlder);
     upvotesEl.innerText = 0;
     downvotesEl.innerText = 0;
     popScoreEl.innerText = 0;
@@ -261,6 +262,7 @@ function initialize() {
   }
 
   function _dragStartHanlder(e) {
+    console.log(e.target.id);
     e.dataTransfer.setData("text/plain", e.target.id);
   }
 
