@@ -270,7 +270,8 @@ function initialize() {
 
   function _dropHandlerForPinCat(e) {
     e.preventDefault();
-    pinCat();
+    const id = e.dataTransfer.getData("text");
+    if (id == headerImgEl.id) pinCat();
   }
 
   function _swapGalleryImage(e) {
